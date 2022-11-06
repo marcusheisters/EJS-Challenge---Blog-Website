@@ -10,6 +10,8 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 
 const app = express();
 
+let posts = [];
+
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -32,8 +34,13 @@ app.get("/compose", (req, res) => {
 });
 
 app.post("/compose", (req, res) => {
-  console.log(req.body.postTitle);
-  res.render("compose")
+  const post = {
+    title: req.body.postTitle, 
+    content: req.body.postContent
+  };
+  posts.push(post);
+  console.log(posts);
+  res.redirect("/");
 });
 
 
