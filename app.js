@@ -41,8 +41,10 @@ app.get("/compose", (req, res) => {
 app.post("/compose", (req, res) => {
   const post = {
     title: req.body.postTitle, 
-    content: req.body.postContent
+    content: req.body.postContent,
+    link: "/posts/" + _.replace(req.body.postTitle, ' ', '-')
   };
+  console.log(post.link);
   posts.push(post);
   res.redirect("/");
 });
@@ -52,13 +54,14 @@ app.get("/posts/:post", (req, res) => {
   posts.forEach(post => {
     const postName = _.lowerCase(post.title);
     if (postName == requestedPostTitle) {
-      console.log("Match found");
+      res.render("post", {
+        postTitle: post.title,
+        postContent: post.content,
+
+      });
     }
-    else {
-      console.log("No matching post found");
-    }
+    
   })
-  res.redirect("/");
 });
 
 app.listen(3000, function() {
