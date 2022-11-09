@@ -42,9 +42,7 @@ app.post("/compose", (req, res) => {
   const post = {
     title: req.body.postTitle, 
     content: req.body.postContent,
-    link: "/posts/" + _.replace(req.body.postTitle, ' ', '-')
   };
-  console.log(post.link);
   posts.push(post);
   res.redirect("/");
 });
